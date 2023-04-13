@@ -1,4 +1,4 @@
-/*TO DO LIST*/
+/*/*TO DO LIST*/
 
 /* 
 1. This is how to respond to a user event, in this case the user event is a mouse click on a button. 
@@ -31,73 +31,114 @@ This is after the ul is opened, which allows you to add the li element in it.
 */
 
 // This opens access to the button element in the HTML for manipulation
-var button = document.getElementById("enter");
-// This opens access to the user input on the HTML, This allows the user to write in a input
-var input = document.getElementById("userinput");
-// This opens access to the UL in the HTML
-var ul = document.querySelector("ul");
-
-
-button.addEventListener("click", function() {
-	if (input.value.length > 0){
-		var li = document.createElement("li");
-		li.appendChild(document.createTextNode(input.value));
-		ul.appendChild(li);
-		input.value = "";
-		}
-});
-
-// How to make the button accept a key press from the enter button? and how to add a Delete button to each new element added.
-/*
-1.It is very similar, but now it is an input object
-	NOTE- Every time an Eventlistener is added we have a keypress and this function receives an event parameter
-if you consol.log that event after pressing the enter key this is the response on the console:
-KeyboardEvent {isTrusted: true, key: 'Enter', charCode: 13}
-2. so add an && logical operator which state that the input.value needs to be greater than 0 AND needs to be event.keycode === 13 
-(enter button is charCode 13)
-*/
-
-
-// // Get the input field and unordered list
-// var input = document.querySelector("input");
+// var button = document.getElementById("enter");
+// // This opens access to the user input on the HTML, This allows the user to write in a input
+// var input = document.getElementById("userinput");
+// // This opens access to the UL in the HTML
 // var ul = document.querySelector("ul");
 
-input.addEventListener("keypress", function(event) {
-  if (input.value.length > 0 && event.keyCode === 13) {
-    // Create a new <li> element
-    var li = document.createElement("li");
 
-    // Set the text content of the new <li> element
-    li.textContent = input.value;
+// button.addEventListener("click", function() {
+// 	if (input.value.length > 0){
+// 		var li = document.createElement("li");
+// 		li.appendChild(document.createTextNode(input.value));
+// 		ul.appendChild(li);
+// 		input.value = "";
+// 		}
+// });
 
-    // Create a new <button> element
-    var deleteButton = document.createElement("button");
+// // How to make the button accept a key press from the enter button? and how to add a Delete button to each new element added.
+// /*
+// 1.It is very similar, but now it is an input object
+// 	NOTE- Every time an Eventlistener is added we have a keypress and this function receives an event parameter
+// if you consol.log that event after pressing the enter key this is the response on the console:
+// KeyboardEvent {isTrusted: true, key: 'Enter', charCode: 13}
+// 2. so add an && logical operator which state that the input.value needs to be greater than 0 AND needs to be event.keycode === 13 
+// (enter button is charCode 13)
+// */
 
-    // Set the text content of the delete button
-    deleteButton.textContent = "Delete";
 
-    // Add a click event listener to the delete button
-    deleteButton.addEventListener("click", function() {
-      // Remove the <li> element when the button is clicked
-      li.parentNode.removeChild(li);
-    });
+// // // Get the input field and unordered list
+// // var input = document.querySelector("input");
+// // var ul = document.querySelector("ul");
 
-    // Add the delete button to the <li> element
-    li.appendChild(deleteButton);
+// input.addEventListener("keypress", function(event) {
+//   if (input.value.length > 0 && event.keyCode === 13) {
+//     // Create a new <li> element
+//     var li = document.createElement("li");
 
-    // Add the new <li> element to the end of the <ul> element
-    ul.appendChild(li);
+//     // Set the text content of the new <li> element
+//     li.textContent = input.value;
 
-    // Clear the input field
-    input.value = "";
+//     // Create a new <button> element
+//     var deleteButton = document.createElement("button");
 
-	// Add a class to the new <li> element, this is for css styling purposes
-	li.className = "list-item";
-  }
-});
+//     // Set the text content of the delete button
+//     deleteButton.textContent = "Delete";
+
+//     // Add a click event listener to the delete button
+//     deleteButton.addEventListener("click", function() {
+//       // Remove the <li> element when the button is clicked
+//       li.parentNode.removeChild(li);
+//     });
+
+//     // Add the delete button to the <li> element
+//     li.appendChild(deleteButton);
+
+//     // Add the new <li> element to the end of the <ul> element
+//     ul.appendChild(li);
+
+//     // Clear the input field
+//     input.value = "";
+
+// 	// Add a class to the new <li> element, this is for css styling purposes
+// 	li.className = "list-item";
+//   }
+// });
 
 
 // -----------
 
+var button = document.getElementById("enter");
+var input = document.getElementById("userinput");
+var ul = document.querySelector("ul");
+
+button.addEventListener("click", function() {
+  if (input.value.length > 0) {
+    var li = document.createElement("li");
+    var checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.addEventListener("click", function() {
+      li.classList.toggle("completed");
+    });
+    li.appendChild(checkbox);
+    li.appendChild(document.createTextNode(input.value));
+    ul.appendChild(li);
+    input.value = "";
+  }
+});
+
+input.addEventListener("keypress", function(event) {
+  if (input.value.length > 0 && event.keyCode === 13) {
+    var li = document.createElement("li");
+    var checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.addEventListener("click", function() {
+      li.classList.toggle("completed");
+    });
+    li.appendChild(checkbox);
+    li.appendChild(document.createTextNode(input.value));
+    ul.appendChild(li);
+    input.value = "";
+  }
+});
+
+var clearButton = document.getElementById("clear");
+
+clearButton.addEventListener("click", function() {
+  while (ul.firstChild) {
+    ul.removeChild(ul.firstChild);
+  }
+});
 
   
